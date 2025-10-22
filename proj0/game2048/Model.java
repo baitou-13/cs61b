@@ -138,6 +138,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        for (int c = 0; c < 4; c++){
+            for(int r = 0; r < 4; r++){
+                if (b.tile(c,r) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +166,12 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        for (int c = 0; c < 4; c++){
+            for(int r = 0; r < 4; r++){
+                if (b.tile(c,r) == null) {
+                    return true;
+                }
+            }
         return false;
     }
 
