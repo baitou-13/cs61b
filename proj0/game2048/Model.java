@@ -173,6 +173,30 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        //case1
+        if (emptySpaceExists(b)){
+            return true;
+        }
+        //case2:There are two adjacent tiles with the same value.
+        // 四个方向：上、下、左、右
+        int[] DR = {-1, 1, 0, 0};
+        int[] DC = {0, 0, -1, 1};
+        for (int r = 0; r < 4; r++) {
+            for (int c = 0; c < 4; c++) {
+                Tile center = b.tile(r, c);
+                if (center == null) continue;   // 空位可跳过
+                for (int d = 0; d < 4; d++) {   // 依次看四个邻居
+                    int nr = r + DR[d];
+                    int nc = c + DC[d];
+                    if (nr < 0 || nr >= 4 || nc < 0 || nc >= 4) continue;
+                    Tile neighbor = b.tile(nr, nc);
+                    if (neighbor == null) continue;
+                    if (neighbor.value() == center.value()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
