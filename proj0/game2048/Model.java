@@ -117,39 +117,35 @@ public class Model extends Observable {
         //board.setViewingPerspective(s)
 
         //up only
-        for(int col = 0; col < board.size(); col++){// per row
-            int[] merged = new int[board.size()];
-            //up solution
-            for(int row = board.size()-2; row >= 0; row--){
-                Tile t = board.tile(col, row); //per tile
-                //load value
-                int[] value = new int[board.size()];
-                for(int row1 = 0; row1 < board.size(); row1++){
-                    Tile t1 = board.tile(col, row1);
-                    if (t1 != null){
-                        value[row1] = t1.value();
+
+        for (int col = 0; col < board.size(); col++) {
+            boolean[] merged = new boolean[board.size()];
+
+            for (int row = 1; row < board.size(); row++) {
+                Tile t = board.tile(col, row);
+                if (t == null) continue;
+
+                int targetRow = row;
+                while (targetRow > 0) {
+                    Tile above = board.tile(col, targetRow - 1);
+                    if (above == null) {
+                        targetRow--;
+                    } else if (above.value() == t.value() && !merged[targetRow - 1]) {
+                        targetRow--;
+                        break;
+                    } else {
+                        break;
                     }
                 }
-                if (t == null){
-                    continue;
-                }
-                //for(int targetRow = board.size()-1; targetRow > row; targetRow--){//from up to down
-                for(int targetRow = row + 1; targetRow < board.size(); targetRow++){
-                    //from down to up; find the last 0 tile and match if the !0 is = this.value()
-                    if(value[targetRow]!=0) {
-                        if (value[targetRow] == t.value() && merged[targetRow] == 0) {
-                            board.move(col, targetRow, t);
-                            changed = true;
-                            merged[targetRow] = 1;
-                            score += 2 * t.value();
-                            continue;
-                        } else{
-                            if(board.move(col, targetRow - 1, t)){
-                                changed = true;
-                                continue;
-                            }
-                        }
+
+                if (targetRow != row) {
+                    Tile existing = board.tile(col, targetRow);
+                    if (existing != null && existing.value() == t.value() && !merged[targetRow]) {
+                        score += 2 * t.value();
+                        merged[targetRow] = true;
                     }
+                    board.move(col, targetRow, t);
+                    changed = true;
                 }
             }
         }
