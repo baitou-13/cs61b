@@ -117,31 +117,37 @@ public class Model extends Observable {
         //board.setViewingPerspective(s)
 
         //up only
-        for(int col = 0; col < board.size(); col++){// per col
-            int[] value = new int[board.size()];
+        for(int col = 0; col < board.size(); col++){// per row
             int[] merged = new int[board.size()];
-            //load value
-            for(int row = 0; row < board.size(); row++){
-                Tile t = board.tile(row, col);
-                if (t != null){
-                    value[row] = t.value();
-                }
-            }
             //up solution
             for(int row = board.size()-2; row >= 0; row--){
-                Tile t = board.tile(col, row);
+                Tile t = board.tile(col, row); //per tile
+                //load value
+                int[] value = new int[board.size()];
+                for(int row1 = 0; row1 < board.size(); row1++){
+                    Tile t1 = board.tile(col, row1);
+                    if (t1 != null){
+                        value[row1] = t1.value();
+                    }
+                }
                 if (t == null){
                     continue;
                 }
-                for(int targetRow = board.size()-1; targetRow > row; targetRow--){
-                    if(value[targetRow] == 0){
-                        board.move(col, targetRow, t);
-                    }
-                    if(value[row] == value[targetRow] && merged[targetRow] == 0){
-                        if(board.move(col,targetRow, t)){
+                //for(int targetRow = board.size()-1; targetRow > row; targetRow--){//from up to down
+                for(int targetRow = row + 1; targetRow < board.size(); targetRow++){
+                    //from down to up; find the last 0 tile and match if the !0 is = this.value()
+                    if(value[targetRow]!=0) {
+                        if (value[targetRow] == t.value() && merged[targetRow] == 0) {
+                            board.move(col, targetRow, t);
                             changed = true;
-                            score += t.value();
                             merged[targetRow] = 1;
+                            score += 2 * t.value();
+                            continue;
+                        } else{
+                            if(board.move(col, targetRow - 1, t)){
+                                changed = true;
+                                continue;
+                            }
                         }
                     }
                 }
