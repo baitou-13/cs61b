@@ -32,4 +32,10 @@ public class AddConstantTest {
         IntListExercises.addConstant(lst, -1);
         assertEquals("0 -> 0 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8", lst.toString());
     }
+    @Test
+    public void testAddToNulllist() {
+        IntList lst = IntList.of();
+        IntListExercises.addConstant(lst, -1);
+        assertNull(lst);
+    }
 }
