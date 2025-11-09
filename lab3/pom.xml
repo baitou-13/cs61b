@@ -40,5 +40,12 @@
             </plugin>
         </plugins>
     </build>
-    
+
+    <repositories>
+        <repository>
+            <id>cs61b-local</id>
+            <name>CS61B Local Repo</name>
+            <url>file://${project.basedir}/../library-sp21/javalib</url>
+        </repository>
+    </repositories>
 </project>
