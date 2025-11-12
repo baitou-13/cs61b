@@ -4,15 +4,14 @@ public class LinkedListDeque<Item> {
 
     //inner class, don't directly use it
     private class Node {
-        public Item data;
-        public Node next;
-        public Node last;
+        private Item data;
+        private Node next;
+        private Node last;
 
         public Node(Item data, Node last, Node next) {
             this.data = data;
             this.last = last;
             this.next = next;
-
         }
 
         private Item remove() {
@@ -91,13 +90,32 @@ public class LinkedListDeque<Item> {
         return current.data;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node current = head.next;
-        while (current != tail){
-            System.out.print(' ' + current.data.toString());
+        while (current != tail) {
+            System.out.print(current.data);
+            if (current.next != tail) System.out.print(" ");
             current = current.next;
         }
         System.out.println();
     }
 
+    public Item getRecursive(int index) {
+        if (index < 0 || index >= size) return null;
+        return getRecursiveHelper(head.next, index);
+    }
+
+    private Item getRecursiveHelper(Node p, int i) {
+        if (i == 0) return p.data;
+        return getRecursiveHelper(p.next, i - 1);
+    }
+
+    public static void main(String[] args) {
+        LinkedListDeque deque = new LinkedListDeque();
+        deque.addFirst(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        System.out.println(deque.getRecursive(2));
+        deque.printDeque();
+    }
 }
