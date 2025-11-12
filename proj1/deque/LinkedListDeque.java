@@ -111,7 +111,7 @@ public class LinkedListDeque<Item> {
     }
 
     public static void main(String[] args) {
-        LinkedListDeque deque = new LinkedListDeque();
+        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
         deque.addFirst(1);
         deque.addLast(2);
         deque.addLast(3);
