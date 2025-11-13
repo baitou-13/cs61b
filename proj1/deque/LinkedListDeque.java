@@ -90,6 +90,13 @@ public class LinkedListDeque<Item> {
         return current.data;
     }
 
+    public Item getFirst() {
+        return head.next.data;
+    }
+    public Item getLast() {
+        return tail.last.data;
+    }
+
     public void printDeque() {
         Node current = head.next;
         while (current != tail) {
@@ -108,14 +115,5 @@ public class LinkedListDeque<Item> {
     private Item getRecursiveHelper(Node p, int i) {
         if (i == 0) return p.data;
         return getRecursiveHelper(p.next, i - 1);
-    }
-
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        deque.addFirst(1);
-        deque.addLast(2);
-        deque.addLast(3);
-        System.out.println(deque.getRecursive(2));
-        deque.printDeque();
     }
 }

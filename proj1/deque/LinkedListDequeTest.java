@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import edu.princeton.cs.algs4.StdRandom;
 
 
 /** Performs some basic linked list tests. */
@@ -118,5 +119,39 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
 
+    }
+
+    @Test
+    public void randomizedTest() {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>();
+
+        int N = 500;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                L.addLast(randVal);
+                System.out.println("addLast(" + randVal + ")");
+            } else if (operationNumber == 1) {
+                // addFirst
+                int randVal = StdRandom.uniform(0, 100);
+                L.addFirst(randVal);
+                System.out.println("addFirst(" + randVal + ")");
+            } else if (operationNumber == 2) {
+                // get
+                int size = L.size();
+                if (size > 0){
+                    int randVal = StdRandom.uniform(0, 20);
+                    if (L.getRecursive(randVal) != null) {}
+                    System.out.println("getLast() returns " + L.getRecursive(randVal));
+                }
+            } else if (operationNumber == 3) {
+                // removeLast
+                System.out.println(L.removeFirst());
+            } else if (operationNumber == 4) {
+                System.out.println(L.removeFirst());
+            }
+        }
     }
 }
