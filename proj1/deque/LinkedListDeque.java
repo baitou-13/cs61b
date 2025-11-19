@@ -106,19 +106,25 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         Node current = head.next;
         while (current != tail) {
             System.out.print(current.data);
-            if (current.next != tail) System.out.print(" ");
+            if (current.next != tail) {
+                System.out.print(" ");
+            }
             current = current.next;
         }
         System.out.println();
     }
 
     public Item getRecursive(int index) {
-        if (index < 0 || index >= size) return null;
+        if (index < 0 || index >= size) {
+            return null;
+        }
         return getRecursiveHelper(head.next, index);
     }
 
     private Item getRecursiveHelper(Node p, int i) {
-        if (i == 0) return p.data;
+        if (i == 0) {
+            return p.data;
+        }
         return getRecursiveHelper(p.next, i - 1);
     }
 

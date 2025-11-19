@@ -10,13 +10,13 @@ public class ArrayDeque<T> implements Deque<T> {
     //index
     //tail_index - head_index + 1 = size;
     private int size;
-    private int head_index;
+    private int headIndex;
 
-    private int tail_index(){
-        if(size == 0){
+    private int tailIndex(){
+        if (size == 0){ 
             return 0;
         }
-        return (head_index + size - 1 + capacity) % capacity;
+        return (headIndex + size - 1 + capacity) % capacity;
     }
 
     //Constructor
@@ -24,7 +24,7 @@ public class ArrayDeque<T> implements Deque<T> {
         this.capacity = capacity;
         items = new Object[capacity];
         size = 0;
-        head_index = 0;
+        headIndex = 0;
     }
 
     public ArrayDeque() {
@@ -33,9 +33,9 @@ public class ArrayDeque<T> implements Deque<T> {
 
     //Dynamic Size
     private void ensureSize(){
-        if (size <=  capacity / 4 && capacity > DEFAULT_CAPACITY) {//minimize
+        if (size <=  capacity / 4 && capacity > DEFAULT_CAPACITY) { //minimize
             resize(capacity / 4);
-        } else if (size + 1 > capacity) {//maximize
+        } else if (size + 1 > capacity) { //maximize
             resize(capacity * 4);
         }
     }
@@ -44,11 +44,11 @@ public class ArrayDeque<T> implements Deque<T> {
         Object[] temp = items;
         items = new Object[newCapacity];
         for (int i = 0; i < size; i++) {
-            items[i] = temp[(head_index + i) % capacity];
+            items[i] = temp[(headIndex + i) % capacity];
         }
 
         capacity = newCapacity;
-        head_index = 0;
+        headIndex = 0;
     }
 
     //API
@@ -69,8 +69,8 @@ public class ArrayDeque<T> implements Deque<T> {
             return;
         }
 
-        head_index = (head_index + capacity - 1) % capacity;
-        items[head_index] = t;
+        headIndex = (headIndex + capacity - 1) % capacity;
+        items[headIndex] = t;
         size++;
     }
 
@@ -78,20 +78,20 @@ public class ArrayDeque<T> implements Deque<T> {
     public void addLast(T t) {
         ensureSize();
         if (isEmpty()) {
-            items[head_index] = t;
+            items[headIndex] = t;
             size++;
             return;
         }
-        int index = tail_index() + 1;
+        int index = tailIndex() + 1;
         items[index] = t;
         size++;
     }
 
     @Override
     public T removeFirst() {
-        T temp = (T) items[head_index];
-        items[head_index] = null;
-        head_index = (head_index + 1) % capacity;
+        T temp = (T) items[headIndex];
+        items[headIndex] = null;
+        headIndex = (headIndex + 1) % capacity;
         ensureSize();
         size--;
         return temp;
@@ -99,8 +99,8 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeLast() {
-        T temp = (T) items[tail_index()];
-        items[tail_index()] = null;
+        T temp = (T) items[tailIndex()];
+        items[tailIndex()] = null;
         ensureSize();
         size--;
         return temp;
@@ -111,7 +111,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (index < 0 || index >= size) {
             return null;
         }
-        return (T) items[(index + head_index) % capacity];
+        return (T) items[(index + headIndex) % capacity];
     }
 
     @Override
