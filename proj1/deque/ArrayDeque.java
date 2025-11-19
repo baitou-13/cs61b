@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private Object[] items;
     private static final int DEFAULT_CAPACITY = 8;
     private int capacity =  DEFAULT_CAPACITY;
@@ -19,6 +19,7 @@ public class ArrayDeque<T> {
 
     //Constructor
     public ArrayDeque(int capacity) {
+        this.capacity = capacity;
         items = new Object[capacity];
         size = 0;
         head_index = 0;
@@ -49,17 +50,16 @@ public class ArrayDeque<T> {
     }
 
     //API
+    @Override
     public int size() {
         return size;
-    }
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public boolean isFull() {
         return size == capacity;
     }
 
+    @Override
     public void addFirst(T t) {
         ensureSize();
         if (isEmpty()) {
@@ -72,6 +72,7 @@ public class ArrayDeque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T t) {
         ensureSize();
         if (isEmpty()) {
@@ -84,6 +85,7 @@ public class ArrayDeque<T> {
         size++;
     }
 
+    @Override
     public T removeFirst() {
         T temp = (T) items[head_index];
         items[head_index] = null;
@@ -93,6 +95,7 @@ public class ArrayDeque<T> {
         return temp;
     }
 
+    @Override
     public T removeLast() {
         T temp = (T) items[tail_index()];
         items[tail_index()] = null;
@@ -101,6 +104,7 @@ public class ArrayDeque<T> {
         return temp;
     }
 
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -108,9 +112,11 @@ public class ArrayDeque<T> {
         return (T) items[(index + head_index) % capacity];
     }
 
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");
         }
+        System.out.println();
     }
 }
