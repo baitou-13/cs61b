@@ -33,7 +33,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     //Dynamic Size
     private void ensureSize() {
-        if (size <=  capacity / 4 && capacity > DEFAULT_CAPACITY) { //minimize
+        if (size <  capacity / 4 && capacity > DEFAULT_CAPACITY) { //minimize
             resize(capacity / 4);
         } else if (size + 1 > capacity) {//maximize
             resize(capacity * 4);
