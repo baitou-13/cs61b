@@ -2,21 +2,21 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<Item> implements Deque<Item> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     //inner class, don't directly use it
     private class Node {
-        private Item data;
+        private T data;
         private Node next;
         private Node last;
 
-        private Node(Item data, Node last, Node next) {
+        private Node(T data, Node last, Node next) {
             this.data = data;
             this.last = last;
             this.next = next;
         }
 
-        private Item remove() {
+        private T remove() {
             if (size == 0) {
                 return null;
             }
@@ -41,7 +41,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         size = 0;
     }
 
-    public LinkedListDeque(Item x) {
+    public LinkedListDeque(T x) {
         head = new Node(null, null, null);
         tail = new Node(null, null, null);
         Node newNode = new Node(x, head, tail);
@@ -51,7 +51,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public void addFirst(Item x) {
+    public void addFirst(T x) {
         Node newNode = new Node(x, head, head.next);
         head.next.last = newNode;
         head.next = newNode;
@@ -59,7 +59,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public void addLast(Item x) {
+    public void addLast(T x) {
         Node newNode = new Node(x, tail.last, tail);
         tail.last.next = newNode;
         tail.last = newNode;
@@ -67,12 +67,12 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public Item removeFirst() {
+    public T removeFirst() {
         return head.next.remove();
     }
 
     @Override
-    public Item removeLast() {
+    public T removeLast() {
         return tail.last.remove();
     }
 
@@ -82,7 +82,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public Item get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
@@ -94,10 +94,10 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         return current.data;
     }
 
-    public Item getFirst() {
+    public T getFirst() {
         return head.next.data;
     }
-    public Item getLast() {
+    public T getLast() {
         return tail.last.data;
     }
 
@@ -114,21 +114,21 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         System.out.println();
     }
 
-    public Item getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
         return getRecursiveHelper(head.next, index);
     }
 
-    private Item getRecursiveHelper(Node p, int i) {
+    private T getRecursiveHelper(Node p, int i) {
         if (i == 0) {
             return p.data;
         }
         return getRecursiveHelper(p.next, i - 1);
     }
 
-    public Iterator<Item> iterator() {
+    public Iterator<T> iterator() {
         return null;
     }
 
