@@ -20,15 +20,11 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     //Constructor
-    public ArrayDeque(int capacity) {
-        this.capacity = capacity;
+    public ArrayDeque() {
+        this.capacity = DEFAULT_CAPACITY;
         items = new Object[capacity];
         size = 0;
         headIndex = 0;
-    }
-
-    public ArrayDeque() {
-        this(DEFAULT_CAPACITY);
     }
 
     //Dynamic Size
@@ -57,10 +53,6 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public int size() {
         return size;
-    }
-
-    public boolean isFull() {
-        return size == capacity;
     }
 
     @Override
