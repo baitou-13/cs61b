@@ -153,14 +153,22 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LinkedListDeque)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof LinkedListDeque)) {
+            return false;
+        }
         LinkedListDeque<?> other = (LinkedListDeque<?>) o;
-        if (size != other.size) return false;
+        if (size != other.size) {
+            return false;
+        }
         Node p = head.next;
         Node q = (Node) other.head.next;
         while (p != tail) {
-            if (!p.data.equals(q.data)) return false;
+            if (!p.data.equals(q.data)) {
+                return false;
+            }
             p = p.next;
             q = q.next;
         }

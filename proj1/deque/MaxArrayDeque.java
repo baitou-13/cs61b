@@ -7,13 +7,13 @@ public class MaxArrayDeque<T> implements Deque<T> {
     private static final int DEFAULT_CAPACITY = 8;
     private int capacity;
     private int size;
-    private int head_index;
+    private int headIndex;
     private Comparator<T> comparator;
 
     public MaxArrayDeque(Comparator<T> c, int capacity) {
         this.capacity = capacity;
         size = 0;
-        head_index = 0;
+        headIndex = 0;
         items = new Object[capacity];
         this.comparator = c;
     }
@@ -26,7 +26,7 @@ public class MaxArrayDeque<T> implements Deque<T> {
         if (size == 0) {
             return 0;
         }
-        return (head_index + size - 1 + capacity) % capacity;
+        return (headIndex + size - 1 + capacity) % capacity;
     }
 
     public int getSize() {
@@ -47,17 +47,17 @@ public class MaxArrayDeque<T> implements Deque<T> {
         Object[] temp = items;
         items = new Object[newCapacity];
         for (int i = 0; i < size; i++) {
-            items[i] = temp[(head_index + i) % capacity];
+            items[i] = temp[(headIndex + i) % capacity];
         }
 
         capacity = newCapacity;
-        head_index = 0;
+        headIndex = 0;
     }
 
     private void renewSize(int expectedSize) {
         if (expectedSize <= capacity / 4 && capacity > DEFAULT_CAPACITY) {
             resize(capacity / 4);
-        } else if(expectedSize > capacity) {// when size = capacity and remove; a bug
+        } else if (expectedSize > capacity) {// when size = capacity and remove; a bug
             resize(capacity * 4);
         }
     }
@@ -65,11 +65,11 @@ public class MaxArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T item) {
         if (isEmpty()) {
-            items[head_index] = item;
-        } else  {
+            items[headIndex] = item;
+        } else {
             renewSize(getSize() + 1);
-            head_index = (head_index + capacity - 1) % capacity;
-            items[head_index] = item;
+            headIndex = (headIndex + capacity - 1) % capacity;
+            items[headIndex] = item;
         }
         size++;
     }
@@ -77,7 +77,7 @@ public class MaxArrayDeque<T> implements Deque<T> {
     @Override
     public void addLast(T item) {
         if (isEmpty()) {
-            items[head_index] = item;
+            items[headIndex] = item;
         } else {
             renewSize(getSize() + 1);
             int index = tail_index() + 1;
@@ -91,9 +91,9 @@ public class MaxArrayDeque<T> implements Deque<T> {
         if (isEmpty()) {
             return null;
         }
-        T item = (T) items[head_index];
-        items[head_index] = null;
-        head_index = (head_index + 1) % capacity;
+        T item = (T) items[headIndex];
+        items[headIndex] = null;
+        headIndex = (headIndex + 1) % capacity;
         size--;
         renewSize(getSize() - 1);
         return item;
@@ -116,7 +116,7 @@ public class MaxArrayDeque<T> implements Deque<T> {
         if (index < 0 || index >= size) {
             return null;
         }
-        return (T) items[(head_index + index) % capacity];
+        return (T) items[(headIndex + index) % capacity];
     }
 
     @Override
@@ -136,7 +136,7 @@ public class MaxArrayDeque<T> implements Deque<T> {
         T maxElement = null;
         for (int i = 0; i < size; i++) {
             @SuppressWarnings("unchecked")
-            T element = (T) items[(head_index + i) % capacity];
+            T element = (T) items[(headIndex + i) % capacity];
             if (maxElement == null || c.compare(element, maxElement) > 0) {
                 maxElement = element;
             }
