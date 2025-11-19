@@ -12,8 +12,8 @@ public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int headIndex;
 
-    private int tailIndex(){
-        if (size == 0){ 
+    private int tailIndex() {
+        if (size == 0) {
             return 0;
         }
         return (headIndex + size - 1 + capacity) % capacity;
@@ -32,10 +32,10 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     //Dynamic Size
-    private void ensureSize(){
+    private void ensureSize() {
         if (size <=  capacity / 4 && capacity > DEFAULT_CAPACITY) { //minimize
             resize(capacity / 4);
-        } else if (size + 1 > capacity) { //maximize
+        } else if (size + 1 > capacity) {//maximize
             resize(capacity * 4);
         }
     }
@@ -122,11 +122,11 @@ public class ArrayDeque<T> implements Deque<T> {
         System.out.println();
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return null;
     }
 
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         return true;
     }
 }

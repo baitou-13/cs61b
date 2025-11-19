@@ -128,11 +128,11 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         return getRecursiveHelper(p.next, i - 1);
     }
 
-    public Iterator<Item> iterator(){
+    public Iterator<Item> iterator() {
         return null;
     }
 
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         return true;
     }
 }
