@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class ArrayDeque<T> implements Deque<T> {
     private Object[] items;
     private static final int DEFAULT_CAPACITY = 8;
@@ -118,5 +120,13 @@ public class ArrayDeque<T> implements Deque<T> {
             System.out.print(get(i) + " ");
         }
         System.out.println();
+    }
+
+    public Iterator<T> iterator(){
+        return null;
+    }
+
+    public boolean equals(Object o){
+        return true;
     }
 }

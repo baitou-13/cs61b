@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<Item> implements Deque<Item> {
 
     //inner class, don't directly use it
@@ -73,7 +75,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     public Item removeLast() {
         return tail.last.remove();
     }
-    
+
     @Override
     public int size() {
         return size;
@@ -118,5 +120,13 @@ public class LinkedListDeque<Item> implements Deque<Item> {
     private Item getRecursiveHelper(Node p, int i) {
         if (i == 0) return p.data;
         return getRecursiveHelper(p.next, i - 1);
+    }
+
+    public Iterator<Item> iterator(){
+        return null;
+    }
+
+    public boolean equals(Object o){
+        return true;
     }
 }
