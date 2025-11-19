@@ -10,7 +10,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
         private Node next;
         private Node last;
 
-        public Node(Item data, Node last, Node next) {
+        private Node(Item data, Node last, Node next) {
             this.data = data;
             this.last = last;
             this.next = next;
