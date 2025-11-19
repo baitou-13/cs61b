@@ -1,6 +1,7 @@
 package deque;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListDeque<T> implements Deque<T> {
 
@@ -128,11 +129,42 @@ public class LinkedListDeque<T> implements Deque<T> {
         return getRecursiveHelper(p.next, i - 1);
     }
 
+
+
+    private class DequeIterator implements Iterator<T> {
+        private Node current = head.next;
+
+        @Override
+        public boolean hasNext() {
+            return current != tail;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            T data = current.data;
+            current = current.next;
+            return data;
+        }
+    }
+
     public Iterator<T> iterator() {
-        return null;
+        return new DequeIterator();
     }
 
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LinkedListDeque)) return false;
+        LinkedListDeque<?> other = (LinkedListDeque<?>) o;
+        if (size != other.size) return false;
+        Node p = head.next;
+        Node q = (Node) other.head.next;
+        while (p != tail) {
+            if (!p.data.equals(q.data)) return false;
+            p = p.next;
+            q = q.next;
+        }
         return true;
     }
 }
+
