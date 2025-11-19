@@ -33,10 +33,12 @@ public class ArrayDeque<T> implements Deque<T> {
 
     //Dynamic Size
     private void ensureSize() {
-        if (size <  capacity / 4 && capacity > DEFAULT_CAPACITY) { //minimize
-            resize(capacity / 4);
-        } else if (size + 1 > capacity) {//maximize
-            resize(capacity * 4);
+        if (size == 0 && capacity > DEFAULT_CAPACITY) {
+            resize(DEFAULT_CAPACITY); // 如果数组为空且容量大于默认容量，缩小到默认容量
+        } else if (size + 1 > capacity) {
+            resize(Math.max(capacity * 4, DEFAULT_CAPACITY)); // 至少扩容到默认容量
+        } else if (size < capacity / 4 && capacity > DEFAULT_CAPACITY) {
+            resize(capacity / 4); // 缩小到容量的1/4，但不超过默认容量
         }
     }
 
