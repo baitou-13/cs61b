@@ -35,11 +35,6 @@ public class MaxArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
     public int size() {
         return size;
     }
@@ -145,8 +140,15 @@ public class MaxArrayDeque<T> implements Deque<T> {
         return maxElement;
     }
 
+    //undo
     @Override
     public Iterator<T> iterator() {
         return null;
+    }
+
+    //undo
+    @Override
+    public boolean equals(Object o) {
+        return true;
     }
 }
