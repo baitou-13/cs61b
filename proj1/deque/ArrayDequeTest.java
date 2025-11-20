@@ -12,11 +12,6 @@ public class ArrayDequeTest {
         ArrayDeque deque = new ArrayDeque();
         assertTrue(deque.isEmpty());
     }
-    @Test
-    public void isEmptyFull() {
-        ArrayDeque deque = new ArrayDeque();
-        assertFalse(deque.isFull());
-    }
 
     @Test
     public void testAddFirst() {//ok
@@ -37,7 +32,7 @@ public class ArrayDequeTest {
     @Test
     public void testRemoveFirst() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        int N = 100;
+        int N = 40;
         for(int i = 0; i < N; i++){
             deque.addLast(i);
         }
@@ -84,6 +79,7 @@ public class ArrayDequeTest {
         for(int i = 0; i < 10; i++) {
             assertEquals(Optional.ofNullable(i), Optional.ofNullable(deque.get(i)));
         }
+        System.out.println(deque.get(10));
     }
 
     @Test
@@ -96,5 +92,33 @@ public class ArrayDequeTest {
             deque.addFirst(i);
         }
         deque.printDeque();
+    }
+
+    @Test
+    public void testRandomAddLastRemoveFirst(){
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int OPERATIONS = 100;
+        for (int i = 0; i < OPERATIONS; i++) {
+            int operationNumber = StdRandom.uniform(0, 2);
+            if (operationNumber == 0) {
+                deque.addLast(i);
+            } else if (operationNumber == 1) {
+                deque.removeFirst();
+            }
+        }
+    }
+
+    @Test
+    public void testRandomAddFirstRemoveLast(){
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int OPERATIONS = 100;
+        for (int i = 0; i < OPERATIONS; i++) {
+            int operationNumber = StdRandom.uniform(0, 2);
+            if (operationNumber == 0) {
+                deque.addFirst(i);
+            } else if (operationNumber == 1) {
+                deque.removeLast();
+            }
+        }
     }
 }

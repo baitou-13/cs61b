@@ -76,13 +76,16 @@ public class ArrayDeque<T> implements Deque<T> {
             size++;
             return;
         }
-        int index = tailIndex() + 1;
+        int index = (tailIndex() + 1) % capacity;
         items[index] = t;
         size++;
     }
 
     @Override
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         T temp = (T) items[headIndex];
         items[headIndex] = null;
         headIndex = (headIndex + 1) % capacity;
@@ -93,6 +96,9 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         T temp = (T) items[tailIndex()];
         items[tailIndex()] = null;
         ensureSize();
@@ -120,6 +126,8 @@ public class ArrayDeque<T> implements Deque<T> {
         return null;
     }
 
+
+    //undo
     public boolean equals(Object o) {
         return true;
     }

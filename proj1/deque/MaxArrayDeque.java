@@ -1,6 +1,7 @@
 package deque;
 
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class MaxArrayDeque<T> implements Deque<T> {
     private Object[] items;
@@ -142,5 +143,10 @@ public class MaxArrayDeque<T> implements Deque<T> {
             }
         }
         return maxElement;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
