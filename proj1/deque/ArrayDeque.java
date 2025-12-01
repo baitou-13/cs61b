@@ -21,7 +21,11 @@ public class ArrayDeque<T> implements Deque<T> {
 
     //Constructor
     public ArrayDeque() {
-        this.capacity = DEFAULT_CAPACITY;
+        this(DEFAULT_CAPACITY);
+    }
+
+    public ArrayDeque(int capacity) {
+        this.capacity = capacity;
         items = new Object[capacity];
         size = 0;
         headIndex = 0;

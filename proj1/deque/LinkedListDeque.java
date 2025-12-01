@@ -130,27 +130,9 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
 
-
-    private class DequeIterator implements Iterator<T> {
-        private Node current = head.next;
-
-        @Override
-        public boolean hasNext() {
-            return current != tail;
-        }
-
-        @Override
-        public T next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            T data = current.data;
-            current = current.next;
-            return data;
-        }
-    }
-
     @Override
     public Iterator<T> iterator() {
-        return new DequeIterator();
+        return null;
     }
 
     @Override

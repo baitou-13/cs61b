@@ -145,7 +145,6 @@ public class MaxArrayDeque<T> implements Deque<T> {
     public Iterator<T> iterator() {
         return null;
     }
-
     //undo
     @Override
     public boolean equals(Object o) {
