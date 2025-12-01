@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T> {
     private Object[] items;
     private static final int DEFAULT_CAPACITY = 8;
-    private int capacity =  DEFAULT_CAPACITY;
+    private int capacity;
 
     //index
     //tail_index - head_index + 1 = size;

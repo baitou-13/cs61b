@@ -59,6 +59,11 @@ public class MaxArrayDeque<T> implements Deque<T> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
     public void addFirst(T item) {
         if (isEmpty()) {
             items[headIndex] = item;
