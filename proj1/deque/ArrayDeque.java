@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private static final int DEFAULT_CAPACITY = 8;
     private int capacity;
@@ -129,7 +129,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public Iterator<T> iterator() {
         class NodeIterator implements Iterator<T> {
             private int iterIndex;
-            public NodeIterator() {
+            NodeIterator() {
                 this.iterIndex = 0;
             }
 

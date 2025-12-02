@@ -13,11 +13,11 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         this.comparator = c;
     }
 
-    // 可选构造器：传入 Comparator 和自定义容量（保持灵活性）
-    public MaxArrayDeque(Comparator<T> c, int capacity) {
-        super(capacity); // 调用 ArrayDeque 的带容量构造
-        this.comparator = c;
-    }
+//    // 可选构造器：传入 Comparator 和自定义容量（保持灵活性）
+//    public MaxArrayDeque(Comparator<T> c, int capacity) {
+//        super(capacity); // 调用 ArrayDeque 的带容量构造
+//        this.comparator = c;
+//    }
 
     public T max() {
         // 复用带参数的 max 方法，传入构造器的 comparator
@@ -46,8 +46,8 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return maxElement;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o); // 复用父类 ArrayDeque 的 equals（若父类实现），或直接 return true
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        return super.equals(o); // 复用父类 ArrayDeque 的 equals（若父类实现），或直接 return true
+//    }
 }
