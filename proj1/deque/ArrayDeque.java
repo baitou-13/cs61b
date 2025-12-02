@@ -127,7 +127,29 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public Iterator<T> iterator() {
-        return null;
+        class NodeIterator implements Iterator<T> {
+            private int iterIndex;
+            public NodeIterator() {
+                this.iterIndex = 0;
+            }
+
+            @Override
+            public boolean hasNext() {
+                return iterIndex < size;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new java.util.NoSuchElementException("迭代器已遍历到末尾，无更多元素");
+                }
+                int actualIndex = (headIndex + iterIndex) % capacity;
+                T item = (T) items[actualIndex];
+                iterIndex++;
+                return item;
+            }
+        }
+        return new NodeIterator();
     }
 
 
