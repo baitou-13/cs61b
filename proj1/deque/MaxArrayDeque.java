@@ -39,23 +39,25 @@ public class MaxArrayDeque<T> implements Deque<T> {
         return size;
     }
 
+    private void ensureSize() {
+        if (size == 0 && capacity > DEFAULT_CAPACITY) {
+            resize(DEFAULT_CAPACITY); // 如果数组为空且容量大于默认容量，缩小到默认容量
+        } else if (size + 1 > capacity) {
+            resize(Math.max(capacity * 4, DEFAULT_CAPACITY)); // 至少扩容到默认容量
+        } else if (size < capacity / 4 && capacity > DEFAULT_CAPACITY) {
+            resize(capacity / 4); // 缩小到容量的1/4，但不超过默认容量
+        }
+    }
+
     private void resize(int newCapacity) {
-        T[] temp = items;
-        items =(T[]) new Object[newCapacity];
+        Object[] temp = items;
+        items = (T[]) new Object[newCapacity];
         for (int i = 0; i < size; i++) {
-            items[i] =  temp[(headIndex + i) % capacity];
+            items[i] = (T) temp[(headIndex + i) % capacity];
         }
 
         capacity = newCapacity;
         headIndex = 0;
-    }
-
-    private void renewSize(int expectedSize) {
-        if (expectedSize <= capacity / 4 && capacity > DEFAULT_CAPACITY) {
-            resize(capacity / 4);
-        } else if (expectedSize > capacity) {// when size = capacity and remove; a bug
-            resize(capacity * 4);
-        }
     }
 
     @Override
@@ -64,24 +66,28 @@ public class MaxArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public void addFirst(T item) {
-        if (!isEmpty()) {
-            renewSize(getSize() + 1);
-            headIndex = (headIndex + capacity - 1) % capacity;
+    public void addFirst(T t) {
+        ensureSize();
+        if (isEmpty()) {
+            addLast(t);
+            return;
         }
-        items[headIndex] = item;
+
+        headIndex = (headIndex + capacity - 1) % capacity;
+        items[headIndex] = t;
         size++;
     }
 
     @Override
-    public void addLast(T item) {
+    public void addLast(T t) {
+        ensureSize();
         if (isEmpty()) {
-            items[headIndex] = item;
-        } else {
-            renewSize(getSize() + 1);
-            int index = tailIndex() + 1;
-            items[index] = item;
+            items[headIndex] = t;
+            size++;
+            return;
         }
+        int index = (tailIndex() + 1) % capacity;
+        items[index] = t;
         size++;
     }
 
@@ -90,12 +96,12 @@ public class MaxArrayDeque<T> implements Deque<T> {
         if (isEmpty()) {
             return null;
         }
-        T item = items[headIndex];
+        T temp = (T) items[headIndex];
         items[headIndex] = null;
         headIndex = (headIndex + 1) % capacity;
+        ensureSize();
         size--;
-        renewSize(getSize() - 1);
-        return item;
+        return temp;
     }
 
     @Override
@@ -103,11 +109,11 @@ public class MaxArrayDeque<T> implements Deque<T> {
         if (isEmpty()) {
             return null;
         }
-        T item = items[tailIndex()];
-        items[tailIndex()] = item;
+        T temp = (T) items[tailIndex()];
+        items[tailIndex()] = null;
+        ensureSize();
         size--;
-        renewSize(getSize() - 1);
-        return item;
+        return temp;
     }
 
     @Override
@@ -127,16 +133,23 @@ public class MaxArrayDeque<T> implements Deque<T> {
     }
 
     public T max() {
-        return max(this.comparator);
-    }
+        // 空队列直接返回 null
+        if (isEmpty()) {
+            return null;
+        }
+        // 确保 Comparator 非空（构造器已校验，此处避免逻辑漏洞）
+        if (comparator == null) {
+            throw new IllegalStateException("Comparator is not specified");
+        }
 
-    public T max(Comparator<T> c) {
-        if (isEmpty()) return null;
-        T maxElement = null;
-        for (int i = 0; i < size; i++) {
-            T element = items[(headIndex + i) % capacity];
-            if (maxElement == null || c.compare(element, maxElement) > 0) {
-                maxElement = element;
+        T maxElement = items[headIndex]; // 初始值设为第一个有效元素（避免 null 判断）
+        // 遍历所有元素，用 Comparator 比较大小
+        for (int i = 1; i < size; i++) {
+            int actualIndex = (headIndex + i) % capacity;
+            T currentElement = items[actualIndex];
+            // 若当前元素比最大值大（Comparator 返回正数），更新最大值
+            if (comparator.compare(currentElement, maxElement) > 0) {
+                maxElement = currentElement;
             }
         }
         return maxElement;

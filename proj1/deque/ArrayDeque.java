@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T> {
-    private Object[] items;
+    private T[] items;
     private static final int DEFAULT_CAPACITY = 8;
     private int capacity;
 
@@ -26,7 +26,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     public ArrayDeque(int capacity) {
         this.capacity = capacity;
-        items = new Object[capacity];
+        items = (T[]) new  Object[capacity];
         size = 0;
         headIndex = 0;
     }
@@ -44,9 +44,9 @@ public class ArrayDeque<T> implements Deque<T> {
 
     private void resize(int newCapacity) {
         Object[] temp = items;
-        items = new Object[newCapacity];
+        items = (T[]) new Object[newCapacity];
         for (int i = 0; i < size; i++) {
-            items[i] = temp[(headIndex + i) % capacity];
+            items[i] = (T) temp[(headIndex + i) % capacity];
         }
 
         capacity = newCapacity;
