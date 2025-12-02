@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 public class LinkedListDeque<T> implements Deque<T> {
 
     //inner class, don't directly use it
-    private class Node <T> {
+    private class Node<T> {
         private T data;
         private Node<T> next;
         private Node<T> last;
@@ -136,7 +136,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             private int wizPos;
             private Node<T> current;
 
-            private LinkedDequeIterator () {
+            private LinkedDequeIterator() {
                 wizPos = 0;
                 current = head.next;
             }
@@ -147,7 +147,9 @@ public class LinkedListDeque<T> implements Deque<T> {
 
             @Override
             public T next() {
-                if (!hasNext()) throw new NoSuchElementException();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 T data = current.data;
                 current = current.next;
                 wizPos++;

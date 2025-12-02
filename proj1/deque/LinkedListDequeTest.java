@@ -141,9 +141,11 @@ public class LinkedListDequeTest {
             } else if (operationNumber == 2) {
                 // get
                 int size = L.size();
-                if (size > 0){
+                if (size > 0) {
                     int randVal = StdRandom.uniform(0, 20);
-                    if (L.getRecursive(randVal) != null) {}
+                    if (L.getRecursive(randVal) != null) {
+                        continue;
+                    }
                     System.out.println("getLast() returns " + L.getRecursive(randVal));
                 }
             } else if (operationNumber == 3) {
