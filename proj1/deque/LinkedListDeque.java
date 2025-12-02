@@ -130,7 +130,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
 
-    @Override
+    //@Override
     public Iterator<T> iterator() {
         class LinkedDequeIterator<T> implements Iterator<T> {
             private int wizPos;

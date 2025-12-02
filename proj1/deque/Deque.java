@@ -15,6 +15,6 @@ public interface Deque<T> {
         return size() == 0;
     }
 
-    public Iterator<T> iterator();
+    //public Iterator<T> iterator();
     public boolean equals(Object o);
 }

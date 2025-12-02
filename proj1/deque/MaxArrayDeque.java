@@ -142,8 +142,7 @@ public class MaxArrayDeque<T> implements Deque<T> {
         return maxElement;
     }
 
-    //undo
-    @Override
+    //@Override
     public Iterator<T> iterator() {
         class NodeIterator implements Iterator<T> {
             private int index;
