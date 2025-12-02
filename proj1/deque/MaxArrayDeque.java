@@ -3,7 +3,6 @@ package deque;
 import java.util.Comparator;
 import java.util.Iterator;
 
-    private static final int DEFAULT_CAPACITY = 8;
 // 继承 ArrayDeque，复用所有 Deque 方法（addFirst、removeLast 等）
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private final Comparator<T> comparator; // 构造时传入的比较器
