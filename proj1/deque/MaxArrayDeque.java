@@ -19,20 +19,11 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         this.comparator = c;
     }
 
-    // ---------------- 题目要求的 2 个 max 方法 ----------------
-    /**
-     * 使用构造时传入的 Comparator 返回最大值
-     * 空队列返回 null
-     */
     public T max() {
         // 复用带参数的 max 方法，传入构造器的 comparator
         return max(this.comparator);
     }
 
-    /**
-     * 使用参数传入的 Comparator 返回最大值（可覆盖构造器的比较器）
-     * 空队列返回 null
-     */
     public T max(Comparator<T> c) {
         // 1. 空队列直接返回 null
         if (isEmpty()) {
@@ -55,7 +46,6 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return maxElement;
     }
 
-    // 题目说明：equals 方法无需严格实现，保持默认或简单实现即可
     @Override
     public boolean equals(Object o) {
         return super.equals(o); // 复用父类 ArrayDeque 的 equals（若父类实现），或直接 return true
