@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 public class LinkedListDeque<T> implements Deque<T> {
 
     //inner class, don't directly use it
-    private class Node {
+    private class Node <T> {
         private T data;
-        private Node next;
-        private Node last;
+        private Node<T> next;
+        private Node<T> last;
 
         private Node(T data, Node last, Node next) {
             this.data = data;
@@ -69,12 +69,12 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
-        return head.next.remove();
+        return (T) head.next.remove();
     }
 
     @Override
     public T removeLast() {
-        return tail.last.remove();
+        return (T) tail.last.remove();
     }
 
     @Override
@@ -92,14 +92,14 @@ public class LinkedListDeque<T> implements Deque<T> {
             current = current.next;
             index--;
         }
-        return current.data;
+        return (T) current.data;
     }
 
     public T getFirst() {
-        return head.next.data;
+        return (T) head.next.data;
     }
     public T getLast() {
-        return tail.last.data;
+        return (T) tail.last.data;
     }
 
     @Override
@@ -119,24 +119,30 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (index < 0 || index >= size) {
             return null;
         }
-        return getRecursiveHelper(head.next, index);
+        return (T) getRecursiveHelper(head.next, index);
     }
 
     private T getRecursiveHelper(Node p, int i) {
         if (i == 0) {
-            return p.data;
+            return (T) p.data;
         }
-        return getRecursiveHelper(p.next, i - 1);
+        return (T) getRecursiveHelper(p.next, i - 1);
     }
+
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private Node current = head.next;
+        class LinkedDequeIterator<T> implements Iterator<T> {
+            private int wizPos;
+            private Node<T> current;
 
+            private LinkedDequeIterator () {
+                wizPos = 0;
+                current = head.next;
+            }
             @Override
             public boolean hasNext() {
-                return current != tail;
+                return wizPos < size;
             }
 
             @Override
@@ -144,10 +150,15 @@ public class LinkedListDeque<T> implements Deque<T> {
                 if (!hasNext()) throw new NoSuchElementException();
                 T data = current.data;
                 current = current.next;
+                wizPos++;
                 return data;
             }
-        };
+        }
+
+        return new LinkedDequeIterator<>();
     }
+
+
 
     @Override
     public boolean equals(Object o) {
