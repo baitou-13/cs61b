@@ -21,15 +21,18 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     //Constructor
     public ArrayDeque() {
-        this(DEFAULT_CAPACITY);
-    }
-
-    public ArrayDeque(int capacity) {
-        this.capacity = capacity;
+        this.capacity = DEFAULT_CAPACITY;
         items = (T[]) new  Object[capacity];
         size = 0;
         headIndex = 0;
     }
+
+//    public ArrayDeque(int capacity) {
+//        this.capacity = capacity;
+//        items = (T[]) new  Object[capacity];
+//        size = 0;
+//        headIndex = 0;
+//    }
 
     //Dynamic Size
     private void ensureSize() {

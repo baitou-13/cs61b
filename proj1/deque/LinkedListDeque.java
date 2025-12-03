@@ -95,13 +95,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return (T) current.data;
     }
 
-//    public T getFirst() {
-//        return (T) head.next.data;
-//    }
-//    public T getLast() {
-//        return (T) tail.last.data;
-//    }
-
     @Override
     public void printDeque() {
         Node current = head.next;
