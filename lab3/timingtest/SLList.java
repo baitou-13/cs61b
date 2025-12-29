@@ -66,6 +66,7 @@ public class SLList<Item> {
 		return p.item;
 	}
 
+
 	/** Returns the size of the list. */
 	public int size() {
 		return size;
